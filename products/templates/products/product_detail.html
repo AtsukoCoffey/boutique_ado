@@ -112,6 +112,7 @@
 {% endblock %}
 
 {% block postloadjs %}
-{{ block.super }}
+<!-- with the call super, replace the first template rather than this -->
+{{ block.super }} 
 {% include 'products/includes/quantity_input_script.html' %}
 {% endblock %}

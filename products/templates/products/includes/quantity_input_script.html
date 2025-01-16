@@ -2,21 +2,28 @@
 
     // Disable +/- buttons outside 1-99 range
     function handleEnableDisable(itemId) {
+        // Template literal is similar to string formatting in Python
         var currentValue = parseInt($(`#id_qty_${itemId}`).val());
         var minusDisabled = currentValue < 2;
         var plusDisabled = currentValue > 98;
         $(`#decrement-qty_${itemId}`).prop('disabled', minusDisabled);
         $(`#increment-qty_${itemId}`).prop('disabled', plusDisabled);
+        //  prop method in JQuery > Disable #x
+        // $( "#x" ).prop( "disabled", true );
+        //  Enable #x
+        //  $( "#x" ).prop( "disabled", false );
     }
 
     // Ensure proper enabling/disabling of all inputs on page load
+    // By getting all the quantity inputs on the page, iterating through them. 
+    // And for each one calling the enable/disable function as soon as the page loads.
     var allQtyInputs = $('.qty_input');
     for(var i = 0; i < allQtyInputs.length; i++){
         var itemId = $(allQtyInputs[i]).data('item_id');
         handleEnableDisable(itemId);
     }
 
-    // Check enable/disable every time the input is changed
+    // For built-in up and down arrows in the number box, check enable/disable every time the input is changed
     $('.qty_input').change(function() {
         var itemId = $(this).data('item_id');
         handleEnableDisable(itemId);
@@ -25,9 +32,11 @@
     // Increment quantity
     $('.increment-qty').click(function(e) {
        e.preventDefault();
+       // Go up to the '.input-group' and find closest input '.qty_input' *[0]
        var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
+       // jQuery to select and manipulate the DOM element referenced by the closestInput
        var currentValue = parseInt($(closestInput).val());
-       $(closestInput).val(currentValue + 1);
+       $(closestInput).val(currentValue + 1);  // Add 1
        var itemId = $(this).data('item_id');
        handleEnableDisable(itemId);
     });
@@ -37,7 +46,7 @@
        e.preventDefault();
        var closestInput = $(this).closest('.input-group').find('.qty_input')[0];
        var currentValue = parseInt($(closestInput).val());
-       $(closestInput).val(currentValue - 1);
+       $(closestInput).val(currentValue - 1);  // Minus 1
        var itemId = $(this).data('item_id');
        handleEnableDisable(itemId);
     });
