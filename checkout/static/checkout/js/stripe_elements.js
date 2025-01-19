@@ -56,6 +56,8 @@ form.addEventListener('submit', function(ev) {
     ev.preventDefault();  // Default action is POST
     card.update({ 'disabled': true});  // card button and submission to prevent multiple submissions
     $('#submit-button').attr('disabled', true);
+    $('#payment-form').fadeToggle(100);
+    $('#loading-overlay').fadeToggle(100);
     // Using python variables in JavaScript 
     stripe.confirmCardPayment(clientSecret, {
         payment_method: {
@@ -70,6 +72,8 @@ form.addEventListener('submit', function(ev) {
                 </span>
                 <span>${result.error.message}</span>`;
             $(errorDiv).html(html);
+            $('#payment-form').fadeToggle(100);
+            $('#loading-overlay').fadeToggle(100);
             // We'll want to re-enable the card element and the submit button to allow the user to fix it.
             card.update({ 'disabled': false});
             $('#submit-button').attr('disabled', false);
