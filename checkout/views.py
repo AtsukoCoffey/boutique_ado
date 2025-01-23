@@ -5,13 +5,15 @@ from django.conf import settings
 
 from .forms import OrderForm
 from .models import Order, OrderLineItem
+
 from products.models import Product
-from profiles.forms import UserProfileForm
 from profiles.models import UserProfile
+from profiles.forms import UserProfileForm
 from bag.contexts import bag_contents
 
 import stripe
 import json
+
 
 @require_POST
 def cache_checkout_data(request):
@@ -37,16 +39,17 @@ def checkout(request):
     if request.method == 'POST':
         bag = request.session.get('bag', {})
         form_data = {
-        'full_name': request.POST['full_name'],
-        'email': request.POST['email'],
-        'phone_number': request.POST['phone_number'],
-        'country': request.POST['country'],
-        'postcode': request.POST['postcode'],
-        'town_or_city': request.POST['town_or_city'],
-        'street_address1': request.POST['street_address1'],
-        'street_address2': request.POST['street_address2'],
-        'county': request.POST['county'],
+            'full_name': request.POST['full_name'],
+            'email': request.POST['email'],
+            'phone_number': request.POST['phone_number'],
+            'country': request.POST['country'],
+            'postcode': request.POST['postcode'],
+            'town_or_city': request.POST['town_or_city'],
+            'street_address1': request.POST['street_address1'],
+            'street_address2': request.POST['street_address2'],
+            'county': request.POST['county'],
         }
+
         order_form = OrderForm(form_data)
         if order_form.is_valid():
             # Prevent multiple commit with .save(commit=False)
@@ -82,20 +85,24 @@ def checkout(request):
                     )
                     order.delete()
                     return redirect(reverse('view_bag'))
+
+            # Save the info to the user's profile if all is well
             request.session['save_info'] = 'save-info' in request.POST
-            return redirect(reverse('checkout_success', args=[order.order_number]))
+            return redirect(
+                reverse('checkout_success', args=[order.order_number]))
         else:
             messages.error(request, 'There was an error with your form. \
                 Please double check your information.')
     else:
         bag = request.session.get('bag', {})
         if not bag:
-            messages.error(request, "There's nothing in your bag at the moment")
+            messages.error(
+                request, "There's nothing in your bag at the moment")
             return redirect(reverse('products'))
 
         current_bag = bag_contents(request)
         total = current_bag['grand_total']
-        stripe_total = round(total * 100)  # round function make the total integer
+        stripe_total = round(total * 100)  # round func make the total integer
         stripe.api_key = stripe_secret_key
         intent = stripe.PaymentIntent.create(
             amount=stripe_total,
@@ -104,6 +111,7 @@ def checkout(request):
         # Check the contents of intent
         # print(intent)
 
+        # Attempt to prefill form with any info maintains in their profile
         if request.user.is_authenticated:
             try:
                 profile = UserProfile.objects.get(user=request.user)
