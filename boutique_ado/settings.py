@@ -26,8 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = 'DEVELOPMENT' in os.environ
-DEBUG = True
+DEBUG = 'DEVELOPMENT' in os.environ
+# DEBUG = True
 
 ALLOWED_HOSTS = [
     '8000-atsukocoffe-boutiqueado-o5mmbn6kxdb.ws.codeinstitute-ide.net',
@@ -35,7 +35,10 @@ ALLOWED_HOSTS = [
     ]
 
 
-CSRF_TRUSTED_ORIGINS = [ "https://8000-atsukocoffe-boutiqueado-o5mmbn6kxdb.ws.codeinstitute-ide.net","https://boutiq-f9ececc6455e.herokuapp.com" ]
+CSRF_TRUSTED_ORIGINS = [ 
+    "https://8000-atsukocoffe-boutiqueado-o5mmbn6kxdb.ws.codeinstitute-ide.net",
+    "https://boutiq-f9ececc6455e.herokuapp.com",
+    ]
 
 # Application definition
 
