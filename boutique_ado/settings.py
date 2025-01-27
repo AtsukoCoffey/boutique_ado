@@ -35,6 +35,8 @@ ALLOWED_HOSTS = [
     ]
 
 
+CSRF_TRUSTED_ORIGINS = [ "https://8000-atsukocoffe-boutiqueado-o5mmbn6kxdb.ws.codeinstitute-ide.net","https://boutiq-f9ececc6455e.herokuapp.com" ]
+
 # Application definition
 
 INSTALLED_APPS = [
@@ -226,6 +228,9 @@ else:
     EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
     EMAIL_HOST_PASS = os.environ.get('EMAIL_HOST_PASS')
     DEFAULT_FROM_EMAIL = os.environ.get('EMAIL_HOST_USER')
+
+
+
 
 
 # Default primary key field type
