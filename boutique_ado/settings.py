@@ -35,8 +35,8 @@ ALLOWED_HOSTS = [
     ]
 
 
-CSRF_TRUSTED_ORIGINS = [ 
-    "https://8000-atsukocoffe-boutiqueado-o5mmbn6kxdb.ws.codeinstitute-ide.net",
+CSRF_TRUSTED_ORIGINS = [
+    "https://8000-atsukocoffe-boutiqueado-o5mmbn6kxdb.ws.codeinstitute-ide.net",  # noqa
     "https://boutiq-f9ececc6455e.herokuapp.com",
     ]
 
@@ -60,7 +60,7 @@ INSTALLED_APPS = [
     'checkout',
     'profiles',
 
-    #Other
+    # Other
     'crispy_forms',
     'storages',
 ]
