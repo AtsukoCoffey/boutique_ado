@@ -13,8 +13,8 @@ import os
 import dj_database_url
 from pathlib import Path
 
-if os.path.exists('env.py'):
-    import env
+# if os.path.exists('env.py'):
+#     import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -30,8 +30,8 @@ DEBUG = 'DEVELOPMENT' in os.environ
 # DEBUG = True
 
 ALLOWED_HOSTS = [
-    '8000-atsukocoffe-boutiqueado-o5mmbn6kxdb.ws.codeinstitute-ide.net',
     'boutiq-f9ececc6455e.herokuapp.com',
+    '127.0.0.1',
     ]
 
 
@@ -187,7 +187,7 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 FREE_DELIVERY_THRESHOLD = 50
-STANDARD_DELIVERY_PERCENTAGE = 10
+ST_DELI_PER = 10
 
 
 if 'USE_AWS' in os.environ:

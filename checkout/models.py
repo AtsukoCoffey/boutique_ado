@@ -53,8 +53,7 @@ class Order(models.Model):
             Sum('lineitem_total')
             )['lineitem_total__sum'] or 0
         if self.order_total < settings.FREE_DELIVERY_THRESHOLD:
-            st_deli_percentage = settings.STANDARD_DELIVERY_PERCENTAGE / 100
-            self.delivery_cost = self.order_total * st_deli_percentage
+            self.delivery_cost = self.order_total * settings.ST_DELI_PER / 100  # noqa
         else:
             self.delivery_cost = 0
         self.grand_total = self.order_total + self.delivery_cost
