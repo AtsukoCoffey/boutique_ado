@@ -13,8 +13,8 @@ import os
 import dj_database_url
 from pathlib import Path
 
-# if os.path.exists('env.py'):
-#     import env
+if os.path.exists('env.py'):  # 'env' is not unused for local workspace
+    import env
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -32,11 +32,11 @@ DEBUG = 'DEVELOPMENT' in os.environ
 ALLOWED_HOSTS = [
     'boutiq-f9ececc6455e.herokuapp.com',
     '127.0.0.1',
+    'localhost',
     ]
 
-
 CSRF_TRUSTED_ORIGINS = [
-    "https://8000-atsukocoffe-boutiqueado-o5mmbn6kxdb.ws.codeinstitute-ide.net",  # noqa
+    "http://127.0.0.1:8000/",
     "https://boutiq-f9ececc6455e.herokuapp.com",
     ]
 
